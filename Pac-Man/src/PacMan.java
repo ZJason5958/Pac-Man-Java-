@@ -54,13 +54,12 @@ public class PacMan extends JPanel {
         pacManRightImage = new ImageIcon(getClass().getResource("./pacManRight.png")).getImage();
         
         try {
-            Scanner scanner = new Scanner(new File("tileMap.txt"));
+            Scanner scanner = new Scanner(new File("Pac-Man/src/tileMap.txt"));
             int index = 0;
             while (scanner.hasNext()) {
                 tileMap[index++] = scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Did not find");
         }
 
         loadMap();
@@ -75,23 +74,21 @@ public class PacMan extends JPanel {
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 char character = tileMap[row].charAt(column);
-                int x = column * tileSize;
-                int y = row * tileSize;
 
                 if (character == 'X') {
-                    walls.add(new Block(wallImage, x, y));
+                    walls.add(new Block(wallImage, column, row));
                 } else if (character == 'b') {
-                    ghosts.add(new Block(blueGhostImage, x, y));
+                    ghosts.add(new Block(blueGhostImage, column, row));
                 } else if (character == 'o') {
-                    ghosts.add(new Block(orangeGhostImage, x, y));
+                    ghosts.add(new Block(orangeGhostImage, column, row));
                 } else if (character == 'p') {
-                    ghosts.add(new Block(pinkGhostImage, x, y));
+                    ghosts.add(new Block(pinkGhostImage, column, row));
                 } else if (character == 'r') {
-                    ghosts.add(new Block(redGhostImage, x, y));
+                    ghosts.add(new Block(redGhostImage, column, row));
                 } else if (character == 'P') {
-                    pacMan = new Block(pacManLeftImage, x, y);
+                    pacMan = new Block(pacManLeftImage, column, row);
                 } else {
-                    foods.add(new Block(null, x + 20, y + 20));
+                    foods.add(new Block(null, column, row));
                 }
             }
         }
