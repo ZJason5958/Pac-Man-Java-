@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.*;
 
 public class PacMan extends JPanel {
@@ -38,6 +41,17 @@ public class PacMan extends JPanel {
     HashSet<Block> foods;
     HashSet<Block> ghosts;
     Block pacMan;
+
+    private String[] tileMap = new String[18];
+    try {
+        Scanner scanner = new Scanner(new File("tileMap.txt"));
+    } catch (FileNotFoundException e) {
+    }
+    
+    int index = 0;
+    //while(scanner.hasNext()) {
+    //   tileMap[index++] = scanner.next();
+    //}
 
     PacMan() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
