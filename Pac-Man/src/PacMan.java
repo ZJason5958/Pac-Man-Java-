@@ -52,6 +52,7 @@ public class PacMan extends JPanel {
         pacManDownImage = new ImageIcon(getClass().getResource("./pacManDown.png")).getImage();
         pacManLeftImage = new ImageIcon(getClass().getResource("./pacManLeft.png")).getImage();
         pacManRightImage = new ImageIcon(getClass().getResource("./pacManRight.png")).getImage();
+        
         try {
             Scanner scanner = new Scanner(new File("tileMap.txt"));
             int index = 0;
@@ -59,6 +60,40 @@ public class PacMan extends JPanel {
                 tileMap[index++] = scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
+        }
+
+        loadMap();
+        System.out.println(walls.size());
+        System.out.println(foods.size());
+        System.out.println(ghosts.size());
+    }
+    public void loadMap() {
+        walls = new HashSet<Block>();
+        foods = new HashSet<Block>();
+        ghosts = new HashSet<Block>();
+
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                char character = tileMap[row].charAt(column);
+                int x = column * tileSize;
+                int y = row * tileSize;
+
+                if (character == 'X') {
+                    walls.add(new Block(wallImage, x, y));
+                } else if (character == 'b') {
+                    ghosts.add(new Block(blueGhostImage, x, y));
+                } else if (character == 'o') {
+                    ghosts.add(new Block(orangeGhostImage, x, y));
+                } else if (character == 'p') {
+                    ghosts.add(new Block(pinkGhostImage, x, y));
+                } else if (character == 'r') {
+                    ghosts.add(new Block(redGhostImage, x, y));
+                } else if (character == 'P') {
+                    pacMan = new Block(pacManLeftImage, x, y);
+                } else {
+                    foods.add(new Block(null, x + 20, y + 20));
+                }
+            }
         }
     }
 }

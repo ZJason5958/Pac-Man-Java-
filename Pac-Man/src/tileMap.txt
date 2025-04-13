@@ -1,4 +1,5 @@
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+X              P               X
 X                              X
 X                              X
 X                              X
@@ -12,7 +13,6 @@ X                              X
 X                              X
 X                              X
 X                              X
-X                              X
-X                              X
-X                              X
+X               r              X
+X              bpo             X
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
