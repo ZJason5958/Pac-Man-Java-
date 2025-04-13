@@ -60,6 +60,7 @@ public class PacMan extends JPanel {
                 tileMap[index++] = scanner.nextLine();
             }
         } catch (FileNotFoundException e) {
+            System.out.println("Did not find");
         }
 
         loadMap();
@@ -71,7 +72,6 @@ public class PacMan extends JPanel {
         walls = new HashSet<Block>();
         foods = new HashSet<Block>();
         ghosts = new HashSet<Block>();
-
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 char character = tileMap[row].charAt(column);
