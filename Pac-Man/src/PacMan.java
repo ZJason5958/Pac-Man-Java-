@@ -4,6 +4,22 @@ import java.util.Random;
 import javax.swing.*;
 
 public class PacMan extends JPanel {
+    class Block {
+        int x;
+        int y;
+        Image image;
+        int startX;
+        int startY;
+        
+        Block(Image image, int x, int y) {
+            this.image = image;
+            this.x = x;
+            this.y = y;
+            this.startX = x;
+            this.startY = y;
+        }
+    }
+
     private int rows = 18;
     private int columns = 32;
     private int tileSize = 80;
@@ -18,6 +34,10 @@ public class PacMan extends JPanel {
     private Image pacManDownImage;
     private Image pacManLeftImage;
     private Image pacManRightImage;
+    HashSet<Block> walls;
+    HashSet<Block> foods;
+    HashSet<Block> ghosts;
+    Block pacMan;
 
     PacMan() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
@@ -27,6 +47,9 @@ public class PacMan extends JPanel {
         orangeGhostImage = new ImageIcon(getClass().getResource("./orangeGhost.png")).getImage();
         pinkGhostImage = new ImageIcon(getClass().getResource("./pinkGhost.png")).getImage();
         redGhostImage = new ImageIcon(getClass().getResource("./redGhost.png")).getImage();
-        pacManImage = new ImageIcon(getClass().getResource("./wall.png")).getImage();
+        pacManUpImage = new ImageIcon(getClass().getResource("./pacManUp.png")).getImage();
+        pacManDownImage = new ImageIcon(getClass().getResource("./pacManDown.png")).getImage();
+        pacManLeftImage = new ImageIcon(getClass().getResource("./pacManLeft.png")).getImage();
+        pacManRightImage = new ImageIcon(getClass().getResource("./pacManRight.png")).getImage();
     }
 }
