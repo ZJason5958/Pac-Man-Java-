@@ -326,14 +326,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 lives -= 1;
                 if (lives == 0) {
                     gameOver = true;
-                    return;
+                } else {
+                    resetPositions();
                 }
-                resetPositions();
             }
         }
         move();
         repaint();
-        if (gameOver) {
+        if (gameOver == true) {
             gameLoop.stop();
         }
         if (frame == 3) {
