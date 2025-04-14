@@ -22,9 +22,6 @@ public class PacMan extends JPanel {
 
     private int rows = 18;
     private int columns = 32;
-    private int tileSize = 80;
-    private int boardWidth = columns * tileSize;
-    private int boardHeight = rows * tileSize;
     private Image wallImage;
     private Image blueGhostImage;
     private Image orangeGhostImage;
@@ -41,7 +38,6 @@ public class PacMan extends JPanel {
     private String[] tileMap = new String[18];
 
     PacMan() {
-        setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.BLACK);
         wallImage = new ImageIcon(getClass().getResource("./wall.png")).getImage();
         blueGhostImage = new ImageIcon(getClass().getResource("./blueGhost.png")).getImage();
@@ -63,9 +59,6 @@ public class PacMan extends JPanel {
         }
 
         loadMap();
-        System.out.println(walls.size());
-        System.out.println(foods.size());
-        System.out.println(ghosts.size());
     }
     public void loadMap() {
         walls = new HashSet<Block>();
@@ -92,5 +85,12 @@ public class PacMan extends JPanel {
                 }
             }
         }
+    }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g);
+    }
+    public void draw(Graphics g) {
+        g.drawImage(pacMan.image, pacMan.x, pacMan.y, 80, 80, null);
     }
 }
