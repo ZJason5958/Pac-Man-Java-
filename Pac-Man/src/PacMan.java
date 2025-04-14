@@ -10,7 +10,7 @@ public class PacMan extends JPanel {
         Image image;
         int startX;
         int startY;
-        
+
         Block(Image image, int x, int y) {
             this.image = image;
             this.x = x;
@@ -48,7 +48,6 @@ public class PacMan extends JPanel {
         pacManDownImage = new ImageIcon(getClass().getResource("./pacManDown.png")).getImage();
         pacManLeftImage = new ImageIcon(getClass().getResource("./pacManLeft.png")).getImage();
         pacManRightImage = new ImageIcon(getClass().getResource("./pacManRight.png")).getImage();
-        
         try {
             Scanner scanner = new Scanner(new File("Pac-Man/src/tileMap.txt"));
             int index = 0;
@@ -57,7 +56,6 @@ public class PacMan extends JPanel {
             }
         } catch (FileNotFoundException e) {
         }
-
         loadMap();
     }
     public void loadMap() {
@@ -67,7 +65,6 @@ public class PacMan extends JPanel {
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 char character = tileMap[row].charAt(column);
-
                 if (character == 'X') {
                     walls.add(new Block(wallImage, column, row));
                 } else if (character == 'b') {
@@ -91,6 +88,16 @@ public class PacMan extends JPanel {
         draw(g);
     }
     public void draw(Graphics g) {
-        g.drawImage(pacMan.image, pacMan.x, pacMan.y, 80, 80, null);
+        g.drawImage(pacMan.image, pacMan.x * 80, pacMan.y * 80, 80, 80, null);
+        for (Block ghost : ghosts) {
+            g.drawImage(ghost.image, ghost.x * 80, ghost.y * 80, 80, 80, null);
+        }
+        for (Block wall : walls) {
+            g.drawImage(wall.image, wall.x * 80, wall.y * 80, 80, 80, null);
+        }
+        g.setColor(Color.WHITE);
+        for (Block food : foods) {
+            g.fillRect(food.x * 80 + 30, food.y * 80 + 30, 20, 20);
+        }
     }
 }
