@@ -151,9 +151,9 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    private int rows = 18;
-    private int columns = 32;
-    private int tileSize = 80;
+    private int rows = App.rows;
+    private int columns = App.columns;
+    private int tileSize = App.tileSize;
     private Image wallImage;
     private Image blueGhostImage;
     private Image orangeGhostImage;
@@ -176,6 +176,8 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     int score = 0;
     int lives = 3;
     boolean gameOver = false;
+    int screenWidth = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    int screenHeight = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
     PacMan() {
         setBackground(Color.BLACK);
@@ -257,10 +259,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         }
         
         if (gameOver) {
-            drawCenteredString(g, "Game Over: " + score, new Rectangle(0, 0, 2560, 1440), new Font("Arial", Font.PLAIN, 200));
+            drawCenteredString(g, "Game Over: " + score, new Rectangle(0, 0, screenWidth, screenHeight), new Font("Arial", Font.PLAIN, screenHeight / 6));
         } else {
-            g.setFont(new Font("Arial", Font.PLAIN, 80));
-            g.drawString("Lives: " + lives + "  Score: " + score, 13, 1425);
+            g.setFont(new Font("Arial", Font.PLAIN, screenHeight / 12));
+            g.drawString("Lives: " + lives + "  Score: " + score, 13, screenHeight - 15);
         }
     }
     public void move() {
