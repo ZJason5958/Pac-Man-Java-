@@ -176,8 +176,6 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     int score = 0;
     int lives = 3;
     boolean gameOver = false;
-    int totalPoints;
-    boolean hasCollided;
 
     PacMan() {
         setBackground(Color.BLACK);
@@ -240,7 +238,6 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 }
             }
         }
-        totalPoints = foods.size();
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -260,10 +257,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         }
         
         if (gameOver) {
-            drawCenteredString(g, "Game Over: " + score + "/" + totalPoints, new Rectangle(0, 0, 2560, 1440), new Font("Arial", Font.PLAIN, 200));
+            drawCenteredString(g, "Game Over: " + score, new Rectangle(0, 0, 2560, 1440), new Font("Arial", Font.PLAIN, 200));
         } else {
             g.setFont(new Font("Arial", Font.PLAIN, 80));
-            g.drawString("Lives: " + lives + "  Score: " + score + "/" + totalPoints, 13, 1425);
+            g.drawString("Lives: " + lives + "  Score: " + score, 13, 1425);
         }
     }
     public void move() {
@@ -295,6 +292,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             }
         }
         foods.remove(foodEaten);
+        if (foods.isEmpty()) {
+            loadMap();
+            resetPositions();
+        }
     }
     public boolean collision(Block a, Block b) {
         if (a.x == b.x) {
