@@ -37,6 +37,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                         this.velocityX = 0;
                         this.velocityY = -1;
                         inputted = false;
+                        pacMan.image = pacManUpImage;
                     }
                 }
                 if (direction == 'D') {
@@ -51,6 +52,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                         this.velocityX = 0;
                         this.velocityY = 1;
                         inputted = false;
+                        pacMan.image = pacManDownImage;
                     }
                 }
                 if (direction == 'L') {
@@ -65,6 +67,7 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                         this.velocityX = -1;
                         this.velocityY = 0;
                         inputted = false;
+                        pacMan.image = pacManLeftImage;
                     }
                 }
                 if (direction == 'R') {
@@ -79,8 +82,27 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                         this.velocityX = 1;
                         this.velocityY = 0;
                         inputted = false;
+                        pacMan.image = pacManRightImage;
                     }
                 }
+            }
+        }
+        void updateDirection(char direction) {
+            if (direction == 'U') {
+                this.velocityX = 0;
+                this.velocityY = -1;
+            }
+            if (direction == 'D') {
+                this.velocityX = 0;
+                this.velocityY = 1;
+            }
+            if (direction == 'L') {
+                this.velocityX = -1;
+                this.velocityY = 0;
+            }
+            if (direction == 'R') {
+                this.velocityX = 1;
+                this.velocityY = 0;
             }
         }
     }
@@ -106,6 +128,8 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     private int frame = 0;
     private char direction;
     private boolean inputted = false;
+    char[] directions = {'U', 'D', 'L', 'R'};
+    Random random = new Random();
 
     PacMan() {
         setBackground(Color.BLACK);
@@ -126,9 +150,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             while (scanner.hasNext()) {
                 tileMap[index++] = scanner.nextLine();
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
         }
         loadMap();
+        for (Block ghost : ghosts) {
+            char newDirection = directions[random.nextInt(4)];
+            ghost.updateDirection(newDirection);
+        }
         gameLoop = new Timer(50, this);
         gameLoop.start();
     }
@@ -181,6 +210,18 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
             if (collision(pacMan, wall)) {
                 pacMan.x -= pacMan.velocityX / 4;
                 pacMan.y -= pacMan.velocityY / 4;
+            }
+        }
+        for (Block ghost : ghosts) {
+            ghost.x += ghost.velocityX / 4;
+            ghost.y += ghost.velocityY / 4;
+            for (Block wall : walls) {
+                if (collision(ghost, wall)) {
+                    ghost.x -= ghost.velocityX / 4;
+                    ghost.y -= ghost.velocityY / 4;
+                    char newDirection = directions[random.nextInt(4)];
+                    ghost.updateDirection(newDirection);
+                }
             }
         }
     }
