@@ -259,7 +259,8 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
         }
         
         if (gameOver) {
-            drawCenteredString(g, "Game Over: " + score, new Rectangle(0, 0, screenWidth, screenHeight), new Font("Arial", Font.PLAIN, screenHeight / 6));
+            drawCenteredString(g, "GAME OVER", new Rectangle(0, 0, screenWidth, (int)(screenHeight * 0.8)), new Font("Arial", Font.PLAIN, screenHeight / 6));
+            drawCenteredString(g, "Final Score: " + score, new Rectangle(0, (int)(screenHeight * 0.2), screenWidth, (int)(screenHeight * 0.8)), new Font("Arial", Font.PLAIN, screenHeight / 9));
         } else {
             g.setFont(new Font("Arial", Font.PLAIN, screenHeight / 12));
             g.drawString("Lives: " + lives + "  Score: " + score, 13, screenHeight - 15);
