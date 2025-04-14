@@ -7,6 +7,7 @@ public class App {
         frame.add(pacManGame);
         frame.setUndecorated(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        pacManGame.requestFocus();
         frame.setVisible(true);
     }
 }
